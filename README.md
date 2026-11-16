@@ -1,6 +1,6 @@
 # FFTA2 A Clan’s Journey 职业对照
 
-[打开职业对照页面](https://hitsmaxft.github.io/ffta2-mod-acj/)
+[打开职业对照页面](https://gh.bhee.online/ffta2-mod-acj/)
 
 对照 A Clan’s Journey 0.972 与原版的职业、技能和转职条件，查看原生职业立绘与教授装备。支持搜索、切换对照内容及手机浏览。
 
