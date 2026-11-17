@@ -1284,17 +1284,17 @@ body { font-size:16px; }
     <article class="about-card"><h3>纯净版 <span>clean</span></h3><p>汉化与基本修复，使用日版汉化体。</p></article>
     <article class="about-card"><h3>增强版 <span>plus</span></h3><p>增加中文命名、修改器与三种可切换字体。</p></article>
   </div>
-  <section class="edition-section" aria-labelledby="modifierTitle"><h3 id="modifierTitle">修改器</h3><p>增强版中打开「系统 → 修改器」，退出菜单后生效。</p>
+  <section class="edition-section" aria-labelledby="modifierTitle"><h3 id="modifierTitle">修改器</h3><p>在增强版中打开「系统 → 修改器」，调整完成并退出菜单后生效。</p>
     <div class="modifier-list">
       <article><h4>战斗两倍速</h4><p>加快战斗移动与动画。</p></article>
-      <article><h4>经验倍率</h4><p>正常、0、2、4、8 倍；0 倍不获经验。</p></article>
+      <article><h4>经验倍率</h4><p>可选正常、0、2、4 或 8 倍；选择 0 倍时不获得经验。</p></article>
       <article><h4>拍卖立即胜出</h4><p>开启后，在拍卖中同时按 L + R。</p></article>
       <article><h4>跳过购票对话</h4><p>自动购票，照常扣费。</p></article>
-      <article><h4>属性上限突破</h4><p>提高我方四项攻防的后续成长上限。</p></article>
+      <article><h4>属性上限突破</h4><p>提高我方物理与魔法攻防的成长上限。</p></article>
     </div>
     <details class="edition-details"><summary>生效范围与开关状态</summary><p>效果默认关闭，战斗速度可能沿用存档设置。除战斗速度外，其他开关冷启动后关闭；已经产生的属性成长等结果仍会保留。</p><p>经验倍率不叠加。自动购票不会解锁航线。属性上限突破不影响 HP、MP、速度，也不补回过去损失的成长。</p></details>
   </section>
-  <section class="edition-section"><h3>中文命名</h3><p>命名时选择「中文」页，支持全拼与小鹤双拼，最多输入 9 个汉字。</p><details class="edition-details"><summary>输入操作</summary><p><kbd>Y</kbd> 候选翻页；<kbd>B</kbd> 先删拼音，再删名字。</p><p>采用 Rime「袖珍简化字拼音」词库，可用汉字以游戏内候选为准。</p></details></section>
+  <section class="edition-section"><h3>中文命名</h3><p>为角色或社团命名时，选择「中文」页即可使用全拼或小鹤双拼，最多输入 9 个汉字。</p><details class="edition-details"><summary>输入操作</summary><p><kbd>Y</kbd> 候选翻页；<kbd>B</kbd> 先删拼音，再删名字。</p><p>采用 Rime「袖珍简化字拼音」词库，可用汉字以游戏内候选为准。</p></details></section>
   <details class="edition-section edition-details"><summary>字体、开屏与存档</summary><p>增强版可在标题菜单切换日版汉化体、Z工坊圆、文泉驿宋。纯净版保留第一幕开屏，增强版默认三幕；后两幕可在离线补丁工具中独立选择。</p><p>离线补丁工具也可分别选择输入法、修改器及字体，无须叠加安装多个版本。</p><p>升级前备份游戏内普通存档，跨版本不要加载旧版模拟器即时状态。</p><p>普通汉化版当前为 1.0.6；ACJ 为独立 MOD，攻略资料对应本体 1.0.5 + ACJ-r9。</p></details>
   <details class="edition-section edition-details"><summary>制作与来源</summary><p>程序：bhe 写作马、啪嗒啪嗒；图片汉化：bhe 写作马；校对：李采叶叶。感谢测试群伙伴。</p><p>文本移植自日版汉化文本，图片来源含暑假作业汉化素材。最终构建与发布：bhe 写作马。</p><a href="https://github.com/ffta-decomp/FFTA-US-CHS" target="_blank" rel="noopener noreferrer">汉化项目与更新记录 ↗</a></details>
 </section>
@@ -1302,17 +1302,17 @@ body { font-size:16px; }
   <section id="mechanicsPage" class="about-page mechanics-page" hidden aria-labelledby="mechanicsTitle">
   <h2 id="mechanicsTitle">ACJ 改了什么</h2>
   <section class="edition-section"><h3>经验与 AP，分别怎么算？</h3>
-    <div class="edition-grid"><article class="about-card"><h3>经验值</h3><p>用于角色升级，战斗行动中积累，任务也可另设经验奖励。</p></article><article class="about-card"><h3>AP</h3><p>用于精通装备教授的技能，在战斗或任务结算时获得。任务 AP 依任务设定，不是每回合发放，也没有所有战斗统一的固定值。</p></article></div>
-    <p>ACJ 0.972 没有改动 512 条任务记录中的经验与 AP 奖励字段，也没有将经验循环换成另一套公式。改变的是职业成长、技能学习配置和等级上限。</p>
+    <div class="edition-grid"><article class="about-card"><h3>经验值</h3><p>用于角色升级。战斗中行动可以获得经验，部分任务也有经验奖励。</p></article><article class="about-card"><h3>AP</h3><p>用于精通装备上的技能，通常在战斗或任务结算时获得。奖励因任务而异，并非每回合发放。</p></article></div>
+    <p>ACJ 沿用原版的任务经验与 AP 奖励配置，主要调整了职业成长、技能学习条件和等级上限。</p>
   </section>
   <section class="edition-section"><h3>培养与战斗资源</h3><div class="modifier-list">
-    <article><h4>等级上限 75</h4><p>原版上限为 99。规划职业成长时，应以 75 级为终点。</p></article>
-    <article><h4>速度不再随升级成长</h4><p>职业速度成长概率改为 0，多数职业初始速度接近；HP、MP 与四项攻防成长重新调整。</p></article>
-    <article><h4>升级补满 MP</h4><p>升级后当前 MP 补至新的最大值。普通战斗初始化的一条路径也改为满 MP。</p></article>
-    <article><h4>技能与装备一起重做</h4><p>MP 消耗、范围、状态和组合效果都有调整；技能来源与转职条件要按 MOD 当前配置查看。</p></article>
+    <article><h4>等级上限 75</h4><p>等级上限从原版的 99 级降至 75 级。</p></article>
+    <article><h4>速度不再随升级成长</h4><p>职业升级不再增加速度，多数职业的初始速度更接近。HP、MP 和攻防成长也经过调整。</p></article>
+    <article><h4>升级补满 MP</h4><p>升级后 MP 会补满。部分战斗单位登场时也会拥有满 MP。</p></article>
+    <article><h4>技能与装备一起重做</h4><p>技能的 MP 消耗、范围和附加效果均有调整，学习装备与转职条件也有所变化。</p></article>
   </div></section>
-  <section class="edition-section"><h3>为什么用药后还能行动？</h3><p>部分道具给使用者附加「再动」效果。给同伴用药，也可能让施用者再次行动；并非所有道具都能触发。</p><details class="edition-details"><summary>再动的触发条件</summary><p>回复药等采用按基础成功判定折算的概率，部分解除异常的道具则采用命中后生效的判定。不能把全部道具统一理解为固定 25%；实际效果以具体道具为准。</p></details></section>
-  <section class="edition-section"><h3>敌人与奖励</h3><p>敌方职业、等级范围、技能和装备配置广泛调整，拍卖奖池也有变化。开场任务的金币奖励从 250 G 提高到 1,580 G。</p></section>
+  <section class="edition-section"><h3>为什么用药后还能行动？</h3><p>部分道具可以让使用者再次行动。即使给同伴用药，获得再动机会的也是使用者；不同道具的触发条件不同。</p><details class="edition-details"><summary>再动的触发条件</summary><p>回复药等采用按基础成功判定折算的概率，部分解除异常的道具则采用命中后生效的判定。不能把全部道具统一理解为固定 25%；实际效果以具体道具为准。</p></details></section>
+  <section class="edition-section"><h3>敌人与奖励</h3><p>敌人的职业、等级范围、技能和装备经过重新配置，拍卖奖品也有调整。开场任务的金币奖励从 250 G 提高到 1,580 G。</p></section>
   <details class="edition-section edition-details"><summary>资料范围</summary><p>以上依据作者 0.972 的代码与数据核对整理；尚未逐场验证所有事件单位、援军和技能。战斗初始 MP 的改动不能推及每一种特殊出场。</p><p>输入法、字体与修改器来自汉化本体，不属于 ACJ 作者的原始玩法改动。普通汉化版的可选增强功能见「美版汉化版」。</p></details>
 </section>
 
