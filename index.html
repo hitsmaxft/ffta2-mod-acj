@@ -1184,6 +1184,11 @@ dialog::backdrop { background:#17382c66;backdrop-filter:blur(3px); }
 @media(max-width:900px) { #mobileAbout { display:block;border:0;background:transparent;padding:4px;font-size:11px;color:#c7d3b8; }.about-overview { grid-template-columns:1fr; } }
 @media(max-width:580px) { .about-page { padding:26px 16px; }.about-card { padding:20px; }.header-actions { gap:7px; } }
 @media(max-width:410px) { .brand-mark { display:none; }.brand h1 { font-size:14px; } }
+.mobile-page-nav { display:none; }
+.site-nav { gap:22px; }
+.edition-kicker { font-size:10px;letter-spacing:2px;color:#8b9b7c;margin:0 0 8px; }.localization-page>h2 { margin-bottom:10px; }.edition-version { display:inline-block;font-size:12px;font-weight:400;color:#71875f;vertical-align:middle;border:1px solid #d0ddc4;border-radius:20px;padding:2px 10px;margin-left:10px; }.edition-lead { color:#7c8c6b;margin:0 0 24px; }.edition-grid { display:grid;grid-template-columns:1fr 1fr;gap:20px; }.edition-label { font-size:10px;letter-spacing:2px;color:#9c8a55; }.edition-grid h3 { margin:8px 0 12px; }.edition-grid p,.edition-grid li,.modifier-grid p,.edition-section>p,.edition-section>.about-card>p { font-size:13px;line-height:1.9; }.edition-grid ul { padding-left:18px;margin-bottom:0;color:#6b7f5c; }.edition-grid li+li { margin-top:8px; }.edition-section { margin-top:32px; }.edition-section>h3 { font-size:20px;margin:0 0 13px; }.edition-help { font-size:12px!important;color:#819172;line-height:1.9; }.modifier-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px; }.modifier-grid .about-card { padding:20px; }.modifier-grid h4 { font-size:15px;margin:0 0 10px; }.modifier-grid p { margin:0;color:#6c805d; }.input-keys { display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:#6d815e; }.input-keys kbd { display:inline-block;border:1px solid #cbd8be;border-radius:4px;padding:1px 7px;background:#f0f4e8;margin-right:5px; }.edition-details { border-top:1px solid #dae3ce;padding-top:18px;color:#738666;font-size:12px; }.edition-details summary { cursor:pointer; }.edition-credits { color:#839375; }.edition-credits p { font-size:12px; }.edition-credits a { color:#496e41;font-size:12px; }
+@media(max-width:1100px) { .site-nav { gap:14px;margin-left:0; }.site-nav button { font-size:12px; } }
+@media(max-width:900px) { .mobile-page-nav { display:flex;gap:20px;padding:10px 22px;background:#204637; }.mobile-page-nav a { text-decoration:none;color:#d7dfc5;font-size:12px; }.mobile-page-nav a[aria-current=true] { color:#fff1bb; }.edition-grid,.modifier-grid { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -1192,7 +1197,7 @@ dialog::backdrop { background:#17382c66;backdrop-filter:blur(3px); }
       <div class="brand-mark" aria-hidden="true">A₂</div>
       <div><div class="eyebrow">A CLAN’S JOURNEY</div><h1>职业与技能攻略</h1></div>
     </div>
-    <nav class="site-nav" aria-label="攻略导航"><button data-category="jobs">职业指南</button><button data-category="active">技能图鉴</button><button data-category="requirements">转职路线</button><button id="topAbout">关于</button></nav>
+    <nav class="site-nav" aria-label="攻略导航"><button data-category="jobs">职业指南</button><button data-category="active">技能图鉴</button><button data-category="requirements">转职路线</button><button id="topLocalization">美版汉化版</button><button id="topAbout">关于</button></nav>
     <div class="header-actions">
       <button id="mobileAbout">关于</button>
       <div id="translationStatus" class="translation-status" tabindex="0" role="note" aria-describedby="translationNote">
@@ -1202,6 +1207,7 @@ dialog::backdrop { background:#17382c66;backdrop-filter:blur(3px); }
       <button id="toggleDirectory" aria-controls="directory" aria-expanded="false">目录</button>
     </div>
   </header>
+  <nav class="mobile-page-nav" aria-label="版本页面"><a href="#jobs:1">ACJ 攻略</a><a href="#localization">美版汉化版</a></nav>
   <section class="game-banner" aria-labelledby="gameTitle">
     <div class="game-banner-copy">
       <p class="game-series">FINAL FANTASY TACTICS A2</p>
@@ -1237,6 +1243,29 @@ dialog::backdrop { background:#17382c66;backdrop-filter:blur(3px); }
     </div>
   </div>
   <section id="aboutPage" class="about-page" hidden aria-labelledby="aboutTitle"><h2 id="aboutTitle">关于游戏与汉化</h2><div id="aboutContent"></div></section>
+  <section id="localizationPage" class="about-page localization-page" hidden aria-labelledby="localizationTitle">
+  <p class="edition-kicker">FINAL FANTASY TACTICS A2 · USA 中文版</p>
+  <h2 id="localizationTitle">美版汉化版 <span class="edition-version">1.0.6</span></h2>
+  <p class="edition-lead">相同的汉化内容，两种游玩选择。</p>
+  <div class="edition-grid">
+    <article class="about-card"><span class="edition-label">CLEAN</span><h3>纯净版</h3><p>汉化与基本修复，保留原有游戏体验。</p><ul><li>日版汉化体</li><li>不含中文输入法与修改器</li><li>保留第一幕开屏，新增后两幕默认关闭</li></ul></article>
+    <article class="about-card"><span class="edition-label">PLUS</span><h3>增强版</h3><p>同样的译文，加上命名与游玩辅助。</p><ul><li>日版汉化体／Z工坊圆／文泉驿宋，标题菜单切换</li><li>中文命名输入法与五项修改器</li><li>默认三幕开屏，后两幕可独立选配</li></ul></article>
+  </div>
+  <section class="edition-section" aria-labelledby="modifierTitle"><h3 id="modifierTitle">修改器能做什么？</h3><p class="edition-help">增强版：系统 → 修改器。调整后关闭菜单提交；各项效果默认关闭，战斗速度可能沿用存档设置。</p>
+    <div class="modifier-grid">
+      <article class="about-card"><h4>战斗两倍速</h4><p>加快战斗移动和战斗动画。</p></article>
+      <article class="about-card"><h4>经验倍率</h4><p>可选正常、0、2、4、8 倍。0 倍不获经验，倍率不叠加。</p></article>
+      <article class="about-card"><h4>拍卖立即胜出</h4><p>开启后，在拍卖中同时按 L + R。</p></article>
+      <article class="about-card"><h4>跳过购票对话</h4><p>自动完成购票，照常检查余额和扣费，不解锁航线。</p></article>
+      <article class="about-card"><h4>属性上限突破</h4><p>提高我方四项攻防的后续成长限制；不改 HP、MP、速度，也不补回已损失的成长。</p></article>
+    </div>
+    <p class="edition-help">除战斗速度外，修改器开关只在当前运行期间有效，冷启动后关闭。属性成长等已发生的游戏结果仍会保留。</p>
+  </section>
+  <section class="edition-section"><h3>用中文起名字</h3><div class="about-card"><p>在角色或社团命名画面选择「中文」页，支持全拼与小鹤双拼，名字最多 9 个汉字。</p><div class="input-keys"><span><kbd>Y</kbd> 候选翻页</span><span><kbd>B</kbd> 先删拼音，再删名字</span></div><p class="edition-help">采用 Rime「袖珍简化字拼音」词库；可用汉字以游戏内候选为准。</p></div></section>
+  <details class="edition-section edition-details"><summary>版本选配与存档</summary><p>离线补丁工具可分别选择输入法、修改器、多字体及后两幕开屏，无须叠加安装多个版本。开屏选项在补丁工具中设置。</p><p>切换版本前备份游戏内普通存档；跨版本读取普通存档，避免沿用旧版模拟器即时状态。</p><p>本页介绍普通汉化版 1.0.6。ACJ 为独立 MOD，本站攻略资料对应本体 1.0.5 + ACJ-r9。</p></details>
+  <section class="edition-section edition-credits"><h3>汉化制作</h3><p>程序：bhe 写作马、啪嗒啪嗒；图片汉化：bhe 写作马；校对：李采叶叶。</p><p>感谢测试群伙伴。文本移植自日版汉化文本，图片来源含暑假作业汉化素材；最终构建与发布：bhe 写作马。</p><a href="https://github.com/ffta-decomp/FFTA-US-CHS" target="_blank" rel="noopener noreferrer">汉化项目与更新记录 ↗</a></section>
+</section>
+
   <div hidden><button id="referenceIssues"></button><button id="download">下载资料数据</button></div>
   <dialog id="detailDialog" aria-labelledby="dialogTitle">
     <div class="dialog-heading"><h2 id="dialogTitle"></h2><button id="closeDialog" aria-label="关闭">×</button></div>
@@ -1795,7 +1824,8 @@ dialog::backdrop { background:#17382c66;backdrop-filter:blur(3px); }
   }
 
   function render() {
-    $('shell').hidden = false; $('aboutPage').hidden = true;
+    $('shell').hidden = false; $('aboutPage').hidden = true; $('localizationPage').hidden = true;
+    for (const link of document.querySelectorAll('.mobile-page-nav a')) link.setAttribute('aria-current', String(link.hash === '#jobs:1'));
     const rows = filtered();
     if (!rows.some(row => store.key(row) === state.selected)) state.selected = rows[0] ? store.key(rows[0]) : null;
     current = store.index.get(state.selected);
@@ -1889,6 +1919,8 @@ dialog::backdrop { background:#17382c66;backdrop-filter:blur(3px); }
     if (data.credits) box.append(el('p', data.credits, 'dialog-meta'));
     box.append(views.button('资料校对记录', showIssues, 'small-button'), views.button('下载资料数据', () => $('download').click(), 'small-button'));
     if (fullPage === true) {
+      $('localizationPage').hidden = true;
+      for (const link of document.querySelectorAll('.mobile-page-nav a')) link.setAttribute('aria-current', 'false');
       closeDirectory(); $('shell').hidden = true; $('aboutPage').hidden = false; $('aboutContent').replaceChildren(box);
       for (const button of document.querySelectorAll('.site-nav button')) button.setAttribute('aria-current', String(button.id === 'topAbout'));
       if (location.hash !== '#about') history.pushState(null, '', '#about');
@@ -1908,6 +1940,7 @@ dialog::backdrop { background:#17382c66;backdrop-filter:blur(3px); }
   }
 
   function fromHash() {
+    if (location.hash === '#localization') { showLocalization(); return; }
     if (location.hash === '#about') { showSource(true); return; }
     const row = store.index.get(location.hash.slice(1));
     if (row) navigate(row.category, row.id); else render();
@@ -1924,11 +1957,18 @@ dialog::backdrop { background:#17382c66;backdrop-filter:blur(3px); }
   $('referenceIssues').hidden = !data.reference_issues.length;
   $('referenceIssues').onclick = showIssues; $('openSource').onclick = showSource;
   $('topAbout').onclick = $('mobileAbout').onclick = () => showSource(true);
+  function showLocalization() {
+    closeDirectory(); $('shell').hidden = true; $('aboutPage').hidden = true; $('localizationPage').hidden = false;
+    for (const button of document.querySelectorAll('.site-nav button')) button.setAttribute('aria-current', String(button.id === 'topLocalization'));
+    for (const link of document.querySelectorAll('.mobile-page-nav a')) link.setAttribute('aria-current', String(link.hash === '#localization'));
+    if (location.hash !== '#localization') history.pushState(null, '', '#localization');
+  }
+  $('topLocalization').onclick = showLocalization;
   $('closeDialog').onclick = () => $('detailDialog').close();
   $('detailDialog').addEventListener('close', () => lastFocus?.isConnected && lastFocus.focus());
   $('detailDialog').addEventListener('click', event => { if (event.target === $('detailDialog')) $('detailDialog').close(); });
   $('toggleDirectory').onclick = () => {
-    if (!$('aboutPage').hidden) { render(); history.pushState(null, '', `#${state.selected || ''}`); }
+    if (!$('aboutPage').hidden || !$('localizationPage').hidden) { render(); history.pushState(null, '', `#${state.selected || ''}`); }
     const expanded = $('shell').classList.toggle('directory-open'); $('toggleDirectory').setAttribute('aria-expanded', String(expanded));
   };
   for (const id of ['category', 'changed', 'scope', 'search']) $(id).addEventListener(id === 'search' ? 'input' : 'change', () => {

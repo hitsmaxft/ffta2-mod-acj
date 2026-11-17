@@ -4,7 +4,9 @@
 
 查看 MOD 职业立绘、特色、技能效果、学习装备与转职路线，点击可展开原版对比。
 
-汉化进行中，中文译名暂定。
+[美版汉化版说明](https://gh.bhee.online/ffta2-mod-acj/#localization)：1.0.6 clean／plus 区别、中文命名与修改器功能。
+
+ACJ 汉化进行中，中文译名暂定。
 
 原 MOD：Zeke_Aileron；汉化及移植：bhe 写作马。游戏素材版权归原权利人。
 
