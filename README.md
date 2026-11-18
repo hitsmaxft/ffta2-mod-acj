@@ -1,12 +1,10 @@
-# FFTA2 A Clan’s Journey 攻略
+# FFTA2 职业与技能攻略
 
 [打开攻略站](https://gh.bhee.online/ffta2-mod-acj/)
 
-查看 MOD 职业立绘、特色、技能效果、学习装备与转职路线，点击可展开原版对比。
+切换正式版 1.0.7 与 ACJ-r10 测试版，查看职业、技能、装备、转职路线和招募等级。
 
-[美版汉化版说明](https://gh.bhee.online/ffta2-mod-acj/#localization)：1.0.6 clean／plus 区别、中文命名与修改器功能。
-
-ACJ 汉化进行中，中文译名暂定。
+ACJ 中文译名仍在校对。招募范围取自游戏配置，实际出现还受任务与游戏进度影响。
 
 原 MOD：Zeke_Aileron；汉化及移植：bhe 写作马。游戏素材版权归原权利人。
 
