@@ -1251,6 +1251,9 @@ body { font-size:16px; }
 .job-route-canvas svg text { fill: currentColor; font-size: 12px; paint-order: stroke; stroke: var(--surface, #fff); stroke-width: 4px; }
 .job-route-avatar { position: absolute; width: 135px; min-height: 82px; transform: translate(-50%,-50%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: .84rem; }
 .job-route-avatar img { width: 40px; height: 40px; object-fit: contain; }
+.job-route-edge path { stroke: currentColor; stroke-width: 2; fill: none; }
+.job-route-edge text { font-weight: 700; }
+.job-route-edge.muted { opacity: .14; }
 </style>
 </head>
 <body>
@@ -2149,12 +2152,20 @@ body { font-size:16px; }
     }
     const columns = new Map();
     const points = new Map();
-    for (const job of jobs) {
-      const level = levels.get(job.id);
-      const column = columns.get(level) || 0;
-      columns.set(level, column + 1);
-      points.set(job.id, {x: 80 + column * 155, y: 55 + level * 155});
-    }
+    const depth = Math.max(0, ...levels.values());
+    const layers = Array.from({length: depth + 1}, (_, level) => jobs.filter(job => levels.get(job.id) === level));
+    layers.forEach((layer, level) => {
+      const anchor = job => {
+        const parents = edges.filter(edge => edge.target === job.id && points.has(edge.source));
+        return parents.length ? parents.reduce((sum, edge) => sum + points.get(edge.source).x, 0) / parents.length : Infinity;
+      };
+      layer.sort((a, b) => (anchor(a) - anchor(b)) || a.id - b.id);
+      columns.set(level, layer.length);
+      layer.forEach((job, column) => points.set(job.id, {x: 80 + column * 155, y: 55 + level * 155}));
+    });
+    const colors = ['#176993','#a63940','#426e25','#7950a5','#92500f','#007568','#a03379','#535698'];
+    const sourceColors = new Map(jobs.filter(job => edges.some(edge => edge.source === job.id))
+      .map((job, index) => [job.id, colors[index % colors.length]]));
     const scroll = el('div', undefined, 'job-route-scroll');
     scroll.tabIndex = 0;
     scroll.setAttribute('aria-label', '转职图，可横向滚动');
@@ -2172,26 +2183,40 @@ body { font-size:16px; }
     const svg = makeSvg('svg', {width, height, 'aria-hidden': 'true'});
     const defs = makeSvg('defs', {});
     const arrow = makeSvg('marker', {id:'job-arrow', markerWidth:8, markerHeight:8, refX:7, refY:4, orient:'auto'});
-    arrow.append(makeSvg('path', {d:'M0 0L8 4L0 8Z', fill:'currentColor'}));
+    arrow.append(makeSvg('path', {d:'M0 0L8 4L0 8Z', fill:'context-stroke'}));
     defs.append(arrow); svg.append(defs);
     const drawn = new Set();
+    const routeLines = [];
     for (const edge of edges) {
       const key = [edge.source, edge.target, edge.count].join(':');
       if (drawn.has(key)) continue;
       drawn.add(key);
       const from = points.get(edge.source), to = points.get(edge.target);
       const middle = (from.y + to.y) / 2;
-      svg.append(makeSvg('path', {d:`M${from.x} ${from.y+43} C${from.x} ${middle},${to.x} ${middle},${to.x} ${to.y-42}`, 'marker-end':'url(#job-arrow)'}));
-      const label = makeSvg('text', {x:(from.x+to.x)/2, y:middle+5, 'text-anchor':'middle'});
+      const lane = (drawn.size % 5 - 2) * 8;
+      const group = makeSvg('g', {class:'job-route-edge', color:sourceColors.get(edge.source)});
+      group.append(makeSvg('path', {d:`M${from.x} ${from.y+43} C${from.x} ${middle+lane},${to.x} ${middle+lane},${to.x} ${to.y-42}`, 'marker-end':'url(#job-arrow)'}));
+      const label = makeSvg('text', {x:(from.x+to.x)/2, y:middle+lane, 'text-anchor':'middle'});
       label.textContent = `精通 ×${edge.count}`;
-      svg.append(label);
+      group.append(label);
+      svg.append(group);
+      routeLines.push({group, source:edge.source, target:edge.target});
     }
     canvas.append(svg);
+    const highlight = id => {
+      for (const line of routeLines) {
+        line.group.classList.toggle('muted', id !== null && id !== line.source && id !== line.target);
+      }
+    };
     for (const job of jobs) {
       const point = points.get(job.id);
       const node = el('a', undefined, 'job-route-avatar');
       node.href = `#jobs:${job.id}`;
-      node.onclick = event => { event.preventDefault(); navigate('jobs', job.id, 'route'); };
+      node.onclick = event => { event.preventDefault(); highlight(job.id); };
+      node.onmouseenter = () => highlight(job.id);
+      node.onmouseleave = () => highlight(null);
+      node.onfocus = () => highlight(job.id);
+      node.onblur = () => highlight(null);
       node.style.left = point.x + 'px';
       node.style.top = point.y + 'px';
       node.append(views.avatar(job), el('strong', store.name('jobs', job.id)));
