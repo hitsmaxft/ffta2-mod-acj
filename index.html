@@ -2153,6 +2153,7 @@ body { font-size:16px; }
       const previous = new Map(levels);
       for (const edge of edges) levels.set(edge.target, Math.max(levels.get(edge.target), previous.get(edge.source) + 1));
     }
+    const rowSpacing = 245;
     const columns = new Map();
     const points = new Map();
     const depth = Math.max(0, ...levels.values());
@@ -2164,7 +2165,7 @@ body { font-size:16px; }
       };
       layer.sort((a, b) => (anchor(a) - anchor(b)) || a.id - b.id);
       columns.set(level, layer.length);
-      layer.forEach((job, column) => points.set(job.id, {x: 80 + column * 155, y: 55 + level * 155}));
+      layer.forEach((job, column) => points.set(job.id, {x: 80 + column * 155, y: 55 + level * rowSpacing}));
     });
     const colors = ['#176993','#a63940','#426e25','#7950a5','#92500f','#007568','#a03379','#535698'];
     const sourceColors = new Map(jobs.filter(job => edges.some(edge => edge.source === job.id))
@@ -2174,7 +2175,7 @@ body { font-size:16px; }
     scroll.setAttribute('aria-label', '转职图，可横向滚动');
     const canvas = el('div', undefined, 'job-route-canvas');
     const width = Math.max(310, ...Array.from(columns.values(), count => count * 155));
-    const height = 140 + Math.max(0, ...levels.values()) * 155;
+    const height = 140 + depth * rowSpacing;
     canvas.style.width = width + 'px';
     canvas.style.height = height + 'px';
     const ns = 'http://www.w3.org/2000/svg';
@@ -2197,7 +2198,7 @@ body { font-size:16px; }
       drawn.add(key);
       const from = points.get(edge.source), to = points.get(edge.target);
       const middle = (from.y + to.y) / 2;
-      const lane = (drawn.size % 5 - 2) * 8;
+      const lane = (drawn.size % 5 - 2) * 24;
       const group = makeSvg('g', {class:'job-route-edge', color:sourceColors.get(edge.source)});
       group.append(makeSvg('path', {d:`M${from.x} ${from.y+43} V${middle+lane} H${to.x} V${to.y-42}`, 'marker-end':'url(#job-arrow)'}));
       const label = makeSvg('text', {x:(from.x+to.x)/2, y:middle+lane, 'text-anchor':'middle'});
