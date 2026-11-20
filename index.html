@@ -1239,6 +1239,18 @@ body { font-size:16px; }
 .banner-publisher { display:block;font:500 20px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;letter-spacing:0;color:#cbd9bd;margin-top:4px; }
 
 .home-page{max-width:1420px;margin:32px auto 64px;padding:0 28px}.home-hero{min-height:500px;background:linear-gradient(125deg,#092f37,#0b5556 65%,#1a7770);border-radius:20px;color:#f6f5e9;display:grid;grid-template-columns:1fr 1fr;align-items:center;overflow:hidden}.home-copy{padding:64px 12px 64px 70px;position:relative;z-index:1}.home-kicker{font-size:12px;letter-spacing:.22em;font-weight:700;color:#a7d7bc}.home-copy h2{font-size:clamp(38px,4.1vw,65px);line-height:1.2;margin:25px 0;letter-spacing:.03em}.home-lead{max-width:490px;font-size:17px;line-height:1.9;color:#c8e1d8}.home-actions{display:flex;gap:12px;flex-wrap:wrap;margin:32px 0}.home-actions button{border:1px solid #d1e9d7;border-radius:7px;padding:13px 18px;background:#e8f1d9;color:#17433d;font-weight:700;cursor:pointer}.home-actions button+button{background:transparent;color:#edf7ec}.home-actions span{margin-left:14px}.home-meta{display:flex;gap:20px;flex-wrap:wrap;font-size:12px;color:#acd0c2}.home-art{height:100%;min-height:460px;position:relative;display:flex;justify-content:center;align-items:center;background:radial-gradient(circle at 50% 50%,#62a59077,transparent 65%)}.home-box{width:min(72%,440px);border-radius:6px;box-shadow:0 24px 65px #001d26a0;transform:rotate(-4deg)}.home-cart{position:absolute;width:31%;max-width:180px;right:4%;bottom:8%;filter:drop-shadow(0 18px 15px #001c22a0);transform:rotate(9deg)}.home-footer{display:flex;justify-content:space-between;gap:20px;align-items:center;color:#55726d;font-size:13px}.home-footer a{color:inherit}@media(max-width:760px){.home-page{margin:18px auto 36px;padding:0 16px}.home-hero{grid-template-columns:1fr}.home-copy{padding:40px 27px 8px}.home-copy h2{font-size:36px}.home-lead{font-size:15px}.home-art{min-height:300px}.home-box{width:62%;max-width:290px}.home-cart{width:27%;right:9%;bottom:6%}.home-footer{align-items:flex-start;flex-direction:column;gap:0}}
+
+.job-route-map { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 1rem; margin-top: 1rem; }
+.job-route-node { border: 1px solid var(--line, #b7bec7); border-radius: .65rem; padding: .8rem; min-width: 0; }
+.job-route-node h3 { margin: 0 0 .5rem; }
+.job-route-node .route-chain { flex-wrap: wrap; }
+.job-route-scroll { grid-column: 1 / -1; overflow-x: auto; border: 1px solid #b7bec7; border-radius: .65rem; }
+.job-route-canvas { position: relative; margin: auto; }
+.job-route-canvas svg { position: absolute; inset: 0; }
+.job-route-canvas svg > path { stroke: currentColor; stroke-width: 1.5; fill: none; opacity: .65; }
+.job-route-canvas svg text { fill: currentColor; font-size: 12px; paint-order: stroke; stroke: var(--surface, #fff); stroke-width: 4px; }
+.job-route-avatar { position: absolute; width: 135px; min-height: 82px; transform: translate(-50%,-50%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: .84rem; }
+.job-route-avatar img { width: 40px; height: 40px; object-fit: contain; }
 </style>
 </head>
 <body>
@@ -1247,7 +1259,7 @@ body { font-size:16px; }
       <div class="brand-mark" aria-hidden="true">A₂</div>
       <div><h1>职业与技能攻略</h1></div>
     </div>
-    <nav class="site-nav" aria-label="攻略导航"><button id="topHome">首页</button><button data-category="jobs">职业指南</button><button data-category="active">技能图鉴</button><button data-category="requirements">转职路线</button><button id="topRecruit">招募等级</button><button id="topMechanics">玩法改动</button><button id="topLocalization">版本说明</button><button id="topAbout">关于</button></nav>
+    <nav class="site-nav" aria-label="攻略导航"><button id="topHome">首页</button><button data-category="jobs">职业指南</button><button data-category="active">技能图鉴</button><button id="topJobRoutes">转职路线</button><button id="topRecruit">招募等级</button><button id="topMechanics">玩法改动</button><button id="topLocalization">版本说明</button><button id="topAbout">关于</button></nav>
     <div class="header-actions">
       <label class="edition-switch"><span class="sr-only">资料版本</span><select id="edition" aria-label="资料版本"><option value="acj">ACJ MOD</option><option value="standard">美版汉化版（FFTA-DECOMP）</option></select></label>
       <button id="mobileAbout">关于</button>
@@ -1258,7 +1270,7 @@ body { font-size:16px; }
       <button id="toggleDirectory" aria-controls="directory" aria-expanded="false">目录</button>
     </div>
   </header>
-  <nav class="mobile-page-nav" aria-label="版本页面"><a href="#home">首页</a><a href="#jobs:1">职业攻略</a><a href="#recruit">招募等级</a><a href="#mechanics">玩法改动</a><a href="#localization">版本说明</a></nav>
+  <nav class="mobile-page-nav" aria-label="版本页面"><a href="#home">首页</a><a href="#jobs:1">职业攻略</a><a href="#job-routes">转职路线</a><a href="#recruit">招募等级</a><a href="#mechanics">玩法改动</a><a href="#localization">版本说明</a></nav>
   <section class="game-banner" aria-labelledby="gameTitle">
     <div class="game-banner-copy">
       <p class="game-series">FINAL FANTASY TACTICS A2</p>
@@ -1302,6 +1314,11 @@ body { font-size:16px; }
     </div>
   </div>
   <section id="aboutPage" class="about-page" hidden aria-labelledby="aboutTitle"><h2 id="aboutTitle">关于游戏与汉化</h2><div id="aboutContent"></div></section>
+  <section id="jobRoutesPage" class="about-page" hidden aria-labelledby="jobRoutesTitle">
+    <h2 id="jobRoutesTitle">职业转职路线</h2>
+    <label>种族 <select id="jobRouteRace"></select></label>
+    <div id="jobRouteMap" class="job-route-map"></div>
+  </section>
   <section id="recruitPage" class="about-page recruit-page" hidden aria-labelledby="recruitTitle"><h2 id="recruitTitle">招募等级</h2><p>配置的入队等级范围；实际出现还受任务、事件和进度限制。</p><div class="recruit-filters"><input id="recruitSearch" type="search" placeholder="搜索职业、种族或角色" aria-label="搜索招募资料"><select id="recruitCategory" aria-label="招募类型"><option value="普通职业模板">普通职业</option><option value="具名入队槽">具名角色</option><option value="初始队伍">初始队伍</option><option value="">全部</option></select></div><div id="recruitResults"></div><details class="edition-details"><summary>等级如何计算？</summary><p>通常以队伍平均等级为基准，再限制在该条目的最低与最高等级之间。增强版开启「招募基准最低」后，以 1 级为基准，最终仍受这里的上下限约束。</p><p>列表来自招募与初始队伍编成；实际是否出现仍取决于任务、事件及游戏进度。固定等级记录的最低和最高值相同。</p></details></section>
   <section id="localizationPage" class="about-page localization-page" hidden aria-labelledby="localizationTitle">
   <h2 id="localizationTitle">美版汉化版（FFTA-DECOMP）<span class="edition-version">1.0.7</span></h2>
@@ -1912,6 +1929,7 @@ body { font-size:16px; }
   }
 
   function render() {
+    $('jobRoutesPage').hidden = true;
     $('shell').hidden = false; $('homePage').hidden = true; $('aboutPage').hidden = true; $('localizationPage').hidden = true;
     $('mechanicsPage').hidden = true; $('recruitPage').hidden = true;
     for (const link of document.querySelectorAll('.mobile-page-nav a')) link.setAttribute('aria-current', String(link.hash === '#jobs:1'));
@@ -1990,6 +2008,7 @@ body { font-size:16px; }
   }
 
   function showSource(fullPage = false) {
+    $('jobRoutesPage').hidden = true;
     const box = el('div');
     const overview = el('div', undefined, 'about-overview');
     for (const [heading, entries] of [
@@ -2043,6 +2062,7 @@ body { font-size:16px; }
 
   function fromHash() {
     if (!location.hash || location.hash === '#home') { showHome(); return; }
+    if (location.hash === '#job-routes') { showJobRoutes(); return; }
     if (location.hash === '#recruit') { showRecruit(); return; }
     if (location.hash === '#mechanics') { showMechanics(); return; }
     if (location.hash === '#localization') { showLocalization(); return; }
@@ -2063,6 +2083,7 @@ body { font-size:16px; }
   $('referenceIssues').onclick = showIssues; $('openSource').onclick = showSource;
   $('topAbout').onclick = $('mobileAbout').onclick = () => showSource(true);
   function showHome() {
+    $('jobRoutesPage').hidden = true;
     closeDirectory(); $('shell').hidden=true; $('aboutPage').hidden=true; $('localizationPage').hidden=true; $('mechanicsPage').hidden=true; $('recruitPage').hidden=true; $('homePage').hidden=false;
     for(const button of document.querySelectorAll('.site-nav button')) button.setAttribute('aria-current',String(button.id==='topHome'));
     for(const link of document.querySelectorAll('.mobile-page-nav a')) link.setAttribute('aria-current',String(link.hash==='#home'));
@@ -2071,6 +2092,7 @@ body { font-size:16px; }
   $('topHome').onclick=showHome;
   document.querySelectorAll('[data-home-edition]').forEach(button=>button.onclick=()=>{ $('edition').value=button.dataset.homeEdition; $('edition').onchange(); navigate('jobs',1); });
   function showLocalization() {
+    $('jobRoutesPage').hidden = true;
     $('homePage').hidden = true;
     $('mechanicsPage').hidden = true; $('recruitPage').hidden = true;
     closeDirectory(); $('shell').hidden = true; $('aboutPage').hidden = true; $('localizationPage').hidden = false;
@@ -2080,6 +2102,7 @@ body { font-size:16px; }
   }
   $('topLocalization').onclick = showLocalization;
   function showMechanics() {
+    $('jobRoutesPage').hidden = true;
     $('homePage').hidden=true;
     closeDirectory();$('shell').hidden=true;$('aboutPage').hidden=true;$('localizationPage').hidden=true;$('recruitPage').hidden=true;$('mechanicsPage').hidden=false;
     for (const button of document.querySelectorAll('.site-nav button')) button.setAttribute('aria-current',String(button.id==='topMechanics'));
@@ -2094,12 +2117,110 @@ body { font-size:16px; }
     for(const row of rows){const card=el('article',undefined,'recruit-card'),copy=el('div'),title=el('strong',row.character||row.job);copy.append(title);if(row.character)copy.append(el('span',row.job));copy.append(el('span',row.race));const level=el('div',row.min===row.max?`Lv. ${row.min}`:`Lv. ${row.min}–${row.max}`,'recruit-level');card.append(copy,level);box.append(card);}
   }
   function showRecruit() {
+    $('jobRoutesPage').hidden = true;
     $('homePage').hidden=true;
     closeDirectory();$('shell').hidden=true;$('aboutPage').hidden=true;$('localizationPage').hidden=true;$('mechanicsPage').hidden=true;$('recruitPage').hidden=false;renderRecruit();
     for(const button of document.querySelectorAll('.site-nav button'))button.setAttribute('aria-current',String(button.id==='topRecruit'));
     for(const link of document.querySelectorAll('.mobile-page-nav a'))link.setAttribute('aria-current',String(link.hash==='#recruit'));
     if(location.hash!=='#recruit')history.pushState(null,'','#recruit');
   }
+  const routeRaces = ['人族', '邦加族', '恩莫族', '维埃拉族', '莫古利族', 'Seeq族', 'Gria族'];
+  routeRaces.forEach((name, index) => {
+    const option = el('option', name);
+    option.value = index + 1;
+    $('jobRouteRace').append(option);
+  });
+  function renderJobRoutes() {
+    const race = Number($('jobRouteRace').value);
+    const map = $('jobRouteMap');
+    map.replaceChildren();
+    $('jobRoutesTitle').textContent = `${routeRaces[race - 1]} · 职业转职路线`;
+    const jobs = store.filter({category: 'jobs', scope: `race:${race}`});
+    const byId = new Map(jobs.map(job => [job.id, job]));
+    const edges = jobs.flatMap(job => job.relations.after.requirements.flatMap((rule, index) =>
+      rule.slots.filter(slot => slot.count).flatMap(slot =>
+        slot.jobs.filter(id => id !== job.id && byId.has(id))
+          .map(id => ({source: id, target: job.id, count: slot.count, index})))));
+    const levels = new Map(jobs.map(job => [job.id, 0]));
+    // Bound layout depth so cyclic data still renders every node.
+    for (let pass = 0; pass < 5; pass++) {
+      const previous = new Map(levels);
+      for (const edge of edges) levels.set(edge.target, Math.max(levels.get(edge.target), previous.get(edge.source) + 1));
+    }
+    const columns = new Map();
+    const points = new Map();
+    for (const job of jobs) {
+      const level = levels.get(job.id);
+      const column = columns.get(level) || 0;
+      columns.set(level, column + 1);
+      points.set(job.id, {x: 80 + column * 155, y: 55 + level * 155});
+    }
+    const scroll = el('div', undefined, 'job-route-scroll');
+    scroll.tabIndex = 0;
+    scroll.setAttribute('aria-label', '转职图，可横向滚动');
+    const canvas = el('div', undefined, 'job-route-canvas');
+    const width = Math.max(310, ...Array.from(columns.values(), count => count * 155));
+    const height = 140 + Math.max(0, ...levels.values()) * 155;
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    const ns = 'http://www.w3.org/2000/svg';
+    const makeSvg = (tag, attributes) => {
+      const node = document.createElementNS(ns, tag);
+      for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, value);
+      return node;
+    };
+    const svg = makeSvg('svg', {width, height, 'aria-hidden': 'true'});
+    const defs = makeSvg('defs', {});
+    const arrow = makeSvg('marker', {id:'job-arrow', markerWidth:8, markerHeight:8, refX:7, refY:4, orient:'auto'});
+    arrow.append(makeSvg('path', {d:'M0 0L8 4L0 8Z', fill:'currentColor'}));
+    defs.append(arrow); svg.append(defs);
+    const drawn = new Set();
+    for (const edge of edges) {
+      const key = [edge.source, edge.target, edge.count].join(':');
+      if (drawn.has(key)) continue;
+      drawn.add(key);
+      const from = points.get(edge.source), to = points.get(edge.target);
+      const middle = (from.y + to.y) / 2;
+      svg.append(makeSvg('path', {d:`M${from.x} ${from.y+43} C${from.x} ${middle},${to.x} ${middle},${to.x} ${to.y-42}`, 'marker-end':'url(#job-arrow)'}));
+      const label = makeSvg('text', {x:(from.x+to.x)/2, y:middle+5, 'text-anchor':'middle'});
+      label.textContent = `精通 ×${edge.count}`;
+      svg.append(label);
+    }
+    canvas.append(svg);
+    for (const job of jobs) {
+      const point = points.get(job.id);
+      const node = el('a', undefined, 'job-route-avatar');
+      node.href = `#jobs:${job.id}`;
+      node.onclick = event => { event.preventDefault(); navigate('jobs', job.id, 'route'); };
+      node.style.left = point.x + 'px';
+      node.style.top = point.y + 'px';
+      node.append(views.avatar(job), el('strong', store.name('jobs', job.id)));
+      if (job.relations.after.requirements.some(rule => rule.flag)) node.append(el('small', '另有解锁条件'));
+      canvas.append(node);
+    }
+    scroll.append(canvas);
+    map.append(scroll);
+    for (const job of jobs) {
+      const card = el('article', undefined, 'job-route-node');
+      const title = el('h3');
+      const link = el('button', store.name('jobs', job.id), 'equipment-link');
+      link.onclick = () => navigate('jobs', job.id, 'route');
+      title.append(link);
+      card.append(title, views.route(job));
+      map.append(card);
+    }
+  }
+  function showJobRoutes() {
+    closeDirectory();
+    for (const id of ['shell', 'homePage', 'aboutPage', 'localizationPage', 'mechanicsPage', 'recruitPage']) $(id).hidden = true;
+    $('jobRoutesPage').hidden = false;
+    for (const button of document.querySelectorAll('.site-nav button')) button.setAttribute('aria-current', String(button.id === 'topJobRoutes'));
+    for (const link of document.querySelectorAll('.mobile-page-nav a')) link.setAttribute('aria-current', String(link.hash === '#job-routes'));
+    if (location.hash !== '#job-routes') history.pushState(null, '', '#job-routes');
+    renderJobRoutes();
+  }
+  $('topJobRoutes').onclick = showJobRoutes;
+  $('jobRouteRace').onchange = renderJobRoutes;
   $('topRecruit').onclick=showRecruit;$('recruitSearch').oninput=renderRecruit;$('recruitCategory').onchange=renderRecruit;
   if(!packs.standard)$('edition').querySelector('[value=standard]').disabled=true;
   $('edition').onchange=()=>{
@@ -2110,13 +2231,13 @@ body { font-size:16px; }
     $('topMechanics').hidden=data.edition==='standard';
     const mobileMechanics=document.querySelector('.mobile-page-nav a[href="#mechanics"]');mobileMechanics.hidden=data.edition==='standard';
     state.comparison=false;state.page=0;state.tab=defaultTab($('category').value);configureScope($('category').value);$('search').value='';
-    if(!$('homePage').hidden)showHome();else if(!$('recruitPage').hidden)renderRecruit();else if(!$('aboutPage').hidden)showSource(true);else if(!$('localizationPage').hidden)showLocalization();else if(!$('mechanicsPage').hidden&&data.edition==='acj')showMechanics();else render();
+    if(!$('jobRoutesPage').hidden)renderJobRoutes();else if(!$('homePage').hidden)showHome();else if(!$('recruitPage').hidden)renderRecruit();else if(!$('aboutPage').hidden)showSource(true);else if(!$('localizationPage').hidden)showLocalization();else if(!$('mechanicsPage').hidden&&data.edition==='acj')showMechanics();else render();
   };
   $('closeDialog').onclick = () => $('detailDialog').close();
   $('detailDialog').addEventListener('close', () => lastFocus?.isConnected && lastFocus.focus());
   $('detailDialog').addEventListener('click', event => { if (event.target === $('detailDialog')) $('detailDialog').close(); });
   $('toggleDirectory').onclick = () => {
-    if (!$('homePage').hidden || !$('aboutPage').hidden || !$('localizationPage').hidden || !$('mechanicsPage').hidden || !$('recruitPage').hidden) { render(); history.pushState(null, '', `#${state.selected || ''}`); }
+    if (!$('jobRoutesPage').hidden || !$('homePage').hidden || !$('aboutPage').hidden || !$('localizationPage').hidden || !$('mechanicsPage').hidden || !$('recruitPage').hidden) { render(); history.pushState(null, '', `#${state.selected || ''}`); }
     const expanded = $('shell').classList.toggle('directory-open'); $('toggleDirectory').setAttribute('aria-expanded', String(expanded));
   };
   for (const id of ['category', 'changed', 'scope', 'search']) $(id).addEventListener(id === 'search' ? 'input' : 'change', () => {
