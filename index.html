@@ -2153,7 +2153,29 @@ body { font-size:16px; }
       const previous = new Map(levels);
       for (const edge of edges) levels.set(edge.target, Math.max(levels.get(edge.target), previous.get(edge.source) + 1));
     }
-    const rowSpacing = 245;
+    const unique = [...new Map(edges.map(edge => [[edge.source, edge.target, edge.count].join(':'), edge])).values()];
+    const bands = new Map();
+    const reserve = (level, edge, end) => {
+      const band = bands.get(level) || [];
+      edge[end] = band.length;
+      band.push(edge);
+      bands.set(level, band);
+    };
+    let bypassCount = 0;
+    for (const edge of unique) {
+      const sourceLevel = levels.get(edge.source);
+      const targetLevel = levels.get(edge.target);
+      reserve(sourceLevel, edge, 'departure');
+      if (targetLevel !== sourceLevel + 1) {
+        edge.bypass = bypassCount++;
+        reserve(targetLevel - 1, edge, 'arrival');
+      }
+    }
+    const rowSpacing = Math.max(245, 122 + Math.max(0, ...Array.from(bands.values(), band => band.length)) * 26);
+    const port = (edge, key) => {
+      const siblings = unique.filter(other => other[key] === edge[key]);
+      return (siblings.indexOf(edge) - (siblings.length - 1) / 2) * Math.min(13, 94 / siblings.length);
+    };
     const columns = new Map();
     const points = new Map();
     const depth = Math.max(0, ...levels.values());
@@ -2174,7 +2196,8 @@ body { font-size:16px; }
     scroll.tabIndex = 0;
     scroll.setAttribute('aria-label', '转职图，可横向滚动');
     const canvas = el('div', undefined, 'job-route-canvas');
-    const width = Math.max(310, ...Array.from(columns.values(), count => count * 155));
+    const nodeWidth = Math.max(310, ...Array.from(columns.values(), count => count * 155));
+    const width = nodeWidth + bypassCount * 18 + (bypassCount ? 28 : 0);
     const height = 140 + depth * rowSpacing;
     canvas.style.width = width + 'px';
     canvas.style.height = height + 'px';
@@ -2189,24 +2212,24 @@ body { font-size:16px; }
     const arrow = makeSvg('marker', {id:'job-arrow', markerWidth:8, markerHeight:8, refX:7, refY:4, orient:'auto'});
     arrow.append(makeSvg('path', {d:'M0 0L8 4L0 8Z', fill:'context-stroke'}));
     defs.append(arrow); svg.append(defs);
-    const drawn = new Set();
     const routeLines = [];
     const routeLabels = [];
-    for (const edge of edges) {
-      const key = [edge.source, edge.target, edge.count].join(':');
-      if (drawn.has(key)) continue;
-      drawn.add(key);
+    for (const edge of unique) {
       const from = points.get(edge.source), to = points.get(edge.target);
-      const middle = (from.y + to.y) / 2;
-      const lane = (drawn.size % 5 - 2) * 24;
+      const startX = from.x + port(edge, 'source');
+      const endX = to.x + port(edge, 'target');
+      const y = from.y + 66 + edge.departure * 26;
+      const bypassX = nodeWidth + 12 + edge.bypass * 18;
+      const arrivalY = to.y - rowSpacing + 66 + edge.arrival * 26;
+      const turnX = edge.bypass === undefined ? endX : bypassX;
+      const approach = edge.bypass === undefined ? '' : `V${arrivalY} H${endX} `;
       const group = makeSvg('g', {class:'job-route-edge', color:sourceColors.get(edge.source)});
-      group.append(makeSvg('path', {d:`M${from.x} ${from.y+43} V${middle+lane} H${to.x} V${to.y-42}`, 'marker-end':'url(#job-arrow)'}));
-      const label = makeSvg('text', {x:(from.x+to.x)/2, y:middle+lane, 'text-anchor':'middle'});
+      group.append(makeSvg('path', {d:`M${startX} ${from.y+52} V${y} H${turnX} ${approach}V${to.y-50}`, 'marker-end':'url(#job-arrow)'}));
+      const x = Math.abs(turnX - startX) < 58 ? startX + 33 : (startX + turnX) / 2;
+      const label = makeSvg('text', {x, y:y+4, 'text-anchor':'middle'});
       label.textContent = `精通 ×${edge.count}`;
       const badge = makeSvg('g', {class:'job-route-badge', color:sourceColors.get(edge.source)});
-      const x = (from.x + to.x) / 2;
-      const y = middle + lane;
-      badge.append(makeSvg('rect', {x:x-29, y:y-13, width:58, height:22, rx:5}), label);
+      badge.append(makeSvg('rect', {x:x-29, y:y-11, width:58, height:22, rx:5}), label);
       routeLabels.push(badge);
       svg.append(group);
       routeLines.push({group, badge, source:edge.source, target:edge.target});
