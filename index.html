@@ -1125,6 +1125,13 @@ dialog::backdrop { background:#17382c66;backdrop-filter:blur(3px); }
 .effect-target { font-size:10px;color:#98a583;min-width:65px;border-radius:4px;background:#f0f4e8;padding:3px 7px; }
 .effect-name { flex:1; min-width:0; }
 .effect-condition { color:#456e5b; background:#edf5ed; border-radius:4px; padding:3px 8px; font-size:13px; }
+@media (max-width:680px) {
+ .effect-list { gap:16px; }
+ .effect-list li { display:grid; grid-template-columns:max-content minmax(0,1fr); gap:5px 10px; align-items:start; }
+ .effect-target { min-width:0; }
+ .effect-name { grid-column:2; min-width:0; }
+ .effect-condition { grid-column:2; justify-self:start; margin-left:0; max-width:100%; }
+}
 .game-description { margin-top:22px;padding-top:14px;border-top:1px solid #e9eedf; }
 .game-description p { font-size:12px;color:#8e9d7c;line-height:1.9;margin:12px 0; }
 .equipment-guide { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px; }
@@ -1157,7 +1164,6 @@ dialog::backdrop { background:#17382c66;backdrop-filter:blur(3px); }
  .skill-guide-card { padding:16px; }.skill-guide-heading>.skill-name { font-size:16px; }.skill-summary { font-size:12px; }.tentative-name { font-size:9px!important;margin-left:5px; }
  .route-card { padding:17px; }.route-chain { gap:10px; }.route-step { flex-wrap:wrap;padding:10px; }.route-step strong { width:100%;padding-left:48px; }.route-arrow { transform:rotate(90deg);width:100%;text-align:center; }
  .route-step.destination { width:100%; }.element-emblem { font-size:55px; }.ability-guide { padding:20px 17px; }.effect-list li { gap:9px; }.effect-target { min-width:55px; }
- .effect-list li { flex-wrap:wrap; }.effect-condition { margin-left:64px; }
  .comparison-heading h2 { font-size:22px; }.comparison-heading>button { font-size:10px; }.advanced-data { margin-top:26px; }
 }
 .skill-summary { color:#5d704f;font-size:13px; }
@@ -1260,13 +1266,9 @@ body { font-size:16px; }
 .job-route-badge rect { fill: currentColor; stroke: #fff; stroke-width: 1; }
 .job-route-canvas .job-route-badge text { fill: #fff; stroke: none; font-weight: 700; }
 .job-route-badge.muted { opacity: .14; }
-.quicken-popover { position: relative; }
-.quicken-card-line { display:flex; margin-top: 10px; }
-.quicken-popover summary { list-style: none; cursor: pointer; font-size: 13px; color: #64794d; background: #f1f5ea; border-radius: 3px; padding: 1px 5px; }
-.quicken-popover summary::-webkit-details-marker { display: none; }
-.quicken-popover-content { position: absolute; z-index: 5; left: 0; top: calc(100% + 6px); width: max-content; max-width: min(270px, 76vw); padding: 10px 12px; color: #284a3d; background: #fffef9; border: 1px solid #d5e3d4; border-radius: 7px; box-shadow: 0 6px 18px #173b2a22; font-size: 13px; }
-.quicken-popover-content p { margin: 0; }
-.quicken-popover-content p + p { margin-top: .4rem; }
+.quicken-card-line { display:flex; align-items:baseline; gap:9px; margin-top:10px; color:#456e5b; font-size:13px; }
+.quicken-card-tag { flex:none; color:#64794d; background:#f1f5ea; border-radius:3px; padding:1px 5px; }
+.quicken-card-condition { min-width:0; }
 .quicken-detail { margin: 1rem 0; padding: .9rem 1rem; border-left: 3px solid #318c8b; background: rgba(49,140,139,.08); border-radius: .35rem; }
 .quicken-detail h4 { margin: 0 0 .35rem; }
 .quicken-detail p { margin: .3rem 0; }
@@ -1784,16 +1786,13 @@ body { font-size:16px; }
         }
         card.append(head, el('p', summary, 'skill-summary'));
         if (guide.quicken?.length) {
-          const line = el('div', undefined, 'quicken-card-line');
-          const popup = el('details', undefined, 'quicken-popover');
-          popup.append(el('summary', '再动'));
-          const content = el('div', undefined, 'quicken-popover-content');
           for (const effect of guide.quicken) {
             const info = this.quickenInfo(effect, guide.inGameDescription || '');
-            content.append(el('p', `${info.target} · ${info.condition}`));
-            if (info.discrepancy) content.append(el('p', '游戏说明：25% · 效果配置：必定', 'quicken-discrepancy'));
+            const line = el('div', undefined, 'quicken-card-line');
+            line.append(el('span', '再动', 'quicken-card-tag'),
+                        el('span', `${info.target} · ${info.condition}${info.discrepancy ? '（说明：25%）' : ''}`, 'quicken-card-condition'));
+            card.append(line);
           }
-          popup.append(content); line.append(popup); card.append(line);
         }
         const foot = el('div', undefined, 'skill-guide-meta');
         for (const tag of [guide.element, guide.area]) if (tag && tag !== '特殊范围') foot.append(el('span', tag));
