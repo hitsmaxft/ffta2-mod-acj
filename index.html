@@ -2172,10 +2172,6 @@ body { font-size:16px; }
       }
     }
     const rowSpacing = Math.max(245, 122 + Math.max(0, ...Array.from(bands.values(), band => band.length)) * 26);
-    const port = (edge, key) => {
-      const siblings = unique.filter(other => other[key] === edge[key]);
-      return (siblings.indexOf(edge) - (siblings.length - 1) / 2) * Math.min(13, 94 / siblings.length);
-    };
     const columns = new Map();
     const points = new Map();
     const depth = Math.max(0, ...levels.values());
@@ -2189,6 +2185,23 @@ body { font-size:16px; }
       columns.set(level, layer.length);
       layer.forEach((job, column) => points.set(job.id, {x: 80 + column * 155, y: 55 + level * rowSpacing}));
     });
+    // Allocate columns across both ends of every route. Jobs on different
+    // tiers can share an x coordinate, so allocating per job is insufficient.
+    const portColumns = new Map();
+    for (const edge of unique) {
+      for (const [endpoint, position] of [['source', 'startX'], ['target', 'endX']]) {
+        const x = points.get(edge[endpoint]).x;
+        const ports = portColumns.get(x) || [];
+        ports.push({edge, position});
+        portColumns.set(x, ports);
+      }
+    }
+    for (const [x, ports] of portColumns) {
+      const spacing = Math.min(13, 104 / Math.max(1, ports.length - 1));
+      ports.forEach(({edge, position}, index) => {
+        edge[position] = x + (index - (ports.length - 1) / 2) * spacing;
+      });
+    }
     const colors = ['#176993','#a63940','#426e25','#7950a5','#92500f','#007568','#a03379','#535698'];
     const sourceColors = new Map(jobs.filter(job => edges.some(edge => edge.source === job.id))
       .map((job, index) => [job.id, colors[index % colors.length]]));
@@ -2216,8 +2229,8 @@ body { font-size:16px; }
     const routeLabels = [];
     for (const edge of unique) {
       const from = points.get(edge.source), to = points.get(edge.target);
-      const startX = from.x + port(edge, 'source');
-      const endX = to.x + port(edge, 'target');
+      const startX = edge.startX;
+      const endX = edge.endX;
       const y = from.y + 66 + edge.departure * 26;
       const bypassX = nodeWidth + 12 + edge.bypass * 18;
       const arrivalY = to.y - rowSpacing + 66 + edge.arrival * 26;
