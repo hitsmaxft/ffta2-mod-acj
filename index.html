@@ -1254,6 +1254,9 @@ body { font-size:16px; }
 .job-route-edge path { stroke: currentColor; stroke-width: 2; fill: none; }
 .job-route-edge text { font-weight: 700; }
 .job-route-edge.muted { opacity: .14; }
+.job-route-badge rect { fill: currentColor; stroke: #fff; stroke-width: 1; }
+.job-route-badge text { fill: #fff; stroke: none; font-weight: 700; }
+.job-route-badge.muted { opacity: .14; }
 </style>
 </head>
 <body>
@@ -2187,6 +2190,7 @@ body { font-size:16px; }
     defs.append(arrow); svg.append(defs);
     const drawn = new Set();
     const routeLines = [];
+    const routeLabels = [];
     for (const edge of edges) {
       const key = [edge.source, edge.target, edge.count].join(':');
       if (drawn.has(key)) continue;
@@ -2195,17 +2199,24 @@ body { font-size:16px; }
       const middle = (from.y + to.y) / 2;
       const lane = (drawn.size % 5 - 2) * 8;
       const group = makeSvg('g', {class:'job-route-edge', color:sourceColors.get(edge.source)});
-      group.append(makeSvg('path', {d:`M${from.x} ${from.y+43} C${from.x} ${middle+lane},${to.x} ${middle+lane},${to.x} ${to.y-42}`, 'marker-end':'url(#job-arrow)'}));
+      group.append(makeSvg('path', {d:`M${from.x} ${from.y+43} V${middle+lane} H${to.x} V${to.y-42}`, 'marker-end':'url(#job-arrow)'}));
       const label = makeSvg('text', {x:(from.x+to.x)/2, y:middle+lane, 'text-anchor':'middle'});
       label.textContent = `精通 ×${edge.count}`;
-      group.append(label);
+      const badge = makeSvg('g', {class:'job-route-badge', color:sourceColors.get(edge.source)});
+      const x = (from.x + to.x) / 2;
+      const y = middle + lane;
+      badge.append(makeSvg('rect', {x:x-29, y:y-13, width:58, height:22, rx:5}), label);
+      routeLabels.push(badge);
       svg.append(group);
-      routeLines.push({group, source:edge.source, target:edge.target});
+      routeLines.push({group, badge, source:edge.source, target:edge.target});
     }
+    svg.append(...routeLabels);
     canvas.append(svg);
     const highlight = id => {
       for (const line of routeLines) {
-        line.group.classList.toggle('muted', id !== null && id !== line.source && id !== line.target);
+        const muted = id !== null && id !== line.source && id !== line.target;
+        line.group.classList.toggle('muted', muted);
+        line.badge.classList.toggle('muted', muted);
       }
     };
     for (const job of jobs) {
