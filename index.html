@@ -1333,6 +1333,13 @@ body { font-size:16px; }
   .growth-table th:first-child { width: 78px; }
   .growth-table th, .growth-table td { padding: .48rem .08rem; }
 }
+
+
+.directory-toolbar { display: none; }
+@media (max-width: 580px) {
+  .directory-toolbar { display: flex; justify-content: flex-end; padding: 8px 12px; }
+  .directory-toolbar #toggleDirectory { color: var(--ink); border-color: var(--line); background: var(--white); }
+}
 </style>
 </head>
 <body>
@@ -1349,7 +1356,6 @@ body { font-size:16px; }
         <span><i aria-hidden="true"></i>汉化中</span>
         <span id="translationNote" class="status-tooltip" role="tooltip">中文译名仍在校对，当前均为临时暂定，后续可能调整。</span>
       </div>
-      <button id="toggleDirectory" aria-controls="directory" aria-expanded="false">目录</button>
     </div>
   </header>
   <nav class="mobile-page-nav" aria-label="版本页面"><a href="#home">首页</a><a href="#jobs:1">职业攻略</a><a href="#job-routes">转职路线</a><a href="#growth">职业成长</a><a href="#recruit">招募等级</a><a href="#mechanics">玩法改动</a><a href="#localization">版本说明</a></nav>
@@ -1376,6 +1382,7 @@ body { font-size:16px; }
 </section>
 
   <div class="shell" id="shell">
+    <div class="directory-toolbar"><button id="toggleDirectory" aria-controls="directory" aria-expanded="false">目录</button></div>
     <aside class="sidebar" id="directory" aria-label="档案目录">
       <div class="side-title"><span>查找攻略</span></div>
       <div class="searchbox"><input id="search" placeholder="找职业、技能或装备" aria-label="搜索"></div>
